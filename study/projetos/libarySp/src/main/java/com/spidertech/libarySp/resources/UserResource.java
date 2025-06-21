@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.spidertech.libarySp.entities.User;
-import com.spidertech.libarySp.repositores.UserRepository;
+import com.spidertech.libarySp.services.UserService;
 
 
 @RestController
@@ -17,12 +17,11 @@ import com.spidertech.libarySp.repositores.UserRepository;
 public class UserResource {
 	
 	@Autowired
-	private UserRepository repository;
-	
+	private UserService service;
 	
 	@GetMapping
 	public ResponseEntity<List<User>> findAll(){
-		List<User> list = repository.findAll();
+		List<User> list = service.findAll();
 		return ResponseEntity.ok().body(list);
 	}
 }

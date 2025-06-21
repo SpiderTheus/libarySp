@@ -1,12 +1,16 @@
 package com.spidertech.libarySp.entities;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -22,7 +26,8 @@ public class User implements Serializable{
 	private String email;
 	private String phone;
 	
-	//private Loan loan;
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+	private Set<Loan> loans = new HashSet<>();
 	
 	public User () {
 		
@@ -34,7 +39,7 @@ public class User implements Serializable{
 		this.name = name;
 		this.email = email;
 		this.phone = phone;
-		//this.loan = loan;
+		
 	}
 
 	public String getName() {
@@ -60,6 +65,10 @@ public class User implements Serializable{
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+	
+	public Set<Loan> getLoans() {
+		return loans;
+	}
 
 	@Override
 	public int hashCode() {
@@ -77,7 +86,10 @@ public class User implements Serializable{
 		User other = (User) obj;
 		return Objects.equals(id, other.id);
 	}
-	
+
+
+
+
 	
 	
 
