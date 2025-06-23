@@ -5,6 +5,7 @@ package com.spidertech.libarySp.config;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -12,10 +13,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import com.spidertech.libarySp.entities.Book;
+import com.spidertech.libarySp.entities.Category;
 import com.spidertech.libarySp.entities.Loan;
 import com.spidertech.libarySp.entities.User;
 import com.spidertech.libarySp.entities.enums.LoanStatus;
 import com.spidertech.libarySp.repositores.BookRepository;
+import com.spidertech.libarySp.repositores.CategoryRepository;
 import com.spidertech.libarySp.repositores.LoanRepository;
 import com.spidertech.libarySp.repositores.UserRepository;
 
@@ -31,6 +34,9 @@ public class TestConfig implements CommandLineRunner{
 	
 	@Autowired
 	private LoanRepository loanRepository;
+	
+	@Autowired
+	private CategoryRepository categoryRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -43,12 +49,26 @@ public class TestConfig implements CommandLineRunner{
 		
 		userRepository.saveAll(Arrays.asList(u1, u2, u3, u4, u5));
 		
+		Category c1 = new Category(null, "Ficção");
+		Category c2 = new Category(null, "Romance");
+		Category c3 = new Category(null, "Terror");
+		Category c4 = new Category(null, "Suspense");
+		Category c5 = new Category(null, "Drama");
+		Category c6 = new Category(null, "Ciência");
+		Category c7 = new Category(null, "Biografia");
+		Category c8 = new Category(null, "Autoajuda");
+		Category c9 = new Category(null, "Tecnologia");
+		Category c10 = new Category(null, "História");
+
+		categoryRepository.saveAll(Arrays.asList(c1, c2, c3, c4, c5, c6, c7, c8, c9, c10));
+
+		
 		// Dados de livros
-		Book b1 = new Book(null, "O Estrangeiro", LocalDate.of(2020, 5, 20), true);
-		Book b2 = new Book(null, "1984", LocalDate.of(2018, 9, 15), true);
-		Book b3 = new Book(null, "Dom Casmurro", LocalDate.of(2015, 2, 10), false);
-		Book b4 = new Book(null, "A Revolução dos Bichos", LocalDate.of(2017, 11, 5), true);
-		Book b5 = new Book(null, "O Pequeno Príncipe", LocalDate.of(2010, 3, 27), false);
+		Book b1 = new Book(null, "O Estrangeiro", LocalDate.of(2020, 5, 20), true, Set.of(c1, c5));
+		Book b2 = new Book(null, "1984", LocalDate.of(2018, 9, 15), true, Set.of(c1, c3, c4, c9));
+		Book b3 = new Book(null, "Dom Casmurro", LocalDate.of(2015, 2, 10),true, Set.of(c1, c2));
+		Book b4 = new Book(null, "A Revolução dos Bichos", LocalDate.of(2017, 11, 5), true, Set.of(c1, c5, c10));
+		Book b5 = new Book(null, "O Pequeno Príncipe", LocalDate.of(2010, 3, 27), false, Set.of(c1, c2, c9));
 
 		bookRepository.saveAll(Arrays.asList(b1, b2, b3, b4, b5));
 	
