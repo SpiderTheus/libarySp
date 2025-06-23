@@ -29,9 +29,15 @@ public class Book implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String title;
+	
+	@ManyToMany
+	@JoinTable(name = "tb_book_author", joinColumns = @JoinColumn(name = "book_id"), inverseJoinColumns = @JoinColumn(name = "author_id"))
+	private Set<Author> authores = new HashSet<>();
+	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'", timezone = "GMT")
 	private LocalDate datePublisher;
 	private boolean isAvalible;
+	
 	
 	@OneToOne
 	@JsonIgnore
@@ -51,10 +57,11 @@ public class Book implements Serializable{
 		
 	}
 	
-	public Book(Long id, String title, LocalDate datePublisher, boolean isAvalible, Set<Category> categories, Publisher publisher) {
+	public Book(Long id, String title, Set<Author> authores, LocalDate datePublisher, boolean isAvalible, Set<Category> categories, Publisher publisher) {
 		super();
 		this.id = id;
 		this.title = title;
+		this.authores = authores;
 		this.datePublisher = datePublisher;
 		this.isAvalible = isAvalible;
 		this.categories = categories;
@@ -112,6 +119,13 @@ public class Book implements Serializable{
 	public void setPublisher(Publisher publisher) {
 		this.publisher = publisher;
 	}
+	
+	
+
+	public Set<Author> getAuthores() {
+		return authores;
+	}
+
 
 	@Override
 	public int hashCode() {
