@@ -16,6 +16,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -41,18 +42,23 @@ public class Book implements Serializable{
 	@JoinTable(name = "tb_book_category", joinColumns = @JoinColumn(name = "book_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
 	private Set<Category> categories = new HashSet<>();
 	
+	@ManyToOne
+	@JoinColumn(name = "publisher_id")
+	private Publisher publisher;
+	
 	
 	public Book() {
 		
 	}
 	
-	public Book(Long id, String title, LocalDate datePublisher, boolean isAvalible, Set<Category> categories) {
+	public Book(Long id, String title, LocalDate datePublisher, boolean isAvalible, Set<Category> categories, Publisher publisher) {
 		super();
 		this.id = id;
 		this.title = title;
 		this.datePublisher = datePublisher;
 		this.isAvalible = isAvalible;
 		this.categories = categories;
+		this.publisher = publisher;
 	}
 
 	public Long getId() {
@@ -97,6 +103,14 @@ public class Book implements Serializable{
 
 	public Set<Category> getCategories() {
 		return categories;
+	}
+	
+	public Publisher getPublisher() {
+		return publisher;
+	}
+
+	public void setPublisher(Publisher publisher) {
+		this.publisher = publisher;
 	}
 
 	@Override

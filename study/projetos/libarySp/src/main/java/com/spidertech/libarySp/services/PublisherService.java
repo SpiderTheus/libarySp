@@ -6,16 +6,16 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.spidertech.libarySp.entities.Book;
-import com.spidertech.libarySp.repositores.BookRepository;
+import com.spidertech.libarySp.entities.Publisher;
+import com.spidertech.libarySp.repositores.PublisherRepository;
 
 @Service
-public class BookService {
+public class PublisherService {
 	
 	@Autowired
-	private BookRepository repository;
+	private PublisherRepository repository;
 	
-	public List<Book> findAll() {
+	public List<Publisher> findAll() {
 		return repository.findAll();
 	}
 
