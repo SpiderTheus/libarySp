@@ -8,7 +8,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.spidertech.libarySp.entities.enums.LoanStatus;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -41,7 +40,7 @@ public class Loan implements Serializable{
 	@JsonIgnore
 	private User user;
 	
-	@OneToOne(cascade = CascadeType.DETACH)
+	@OneToOne
 	@JoinColumn(name = "tb_book")
 	private Book book;
 	

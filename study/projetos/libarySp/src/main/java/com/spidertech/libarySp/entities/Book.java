@@ -38,10 +38,9 @@ public class Book implements Serializable{
 	private LocalDate datePublisher;
 	private boolean isAvalible;
 	
-	
-	@OneToOne
+
+	@OneToOne(mappedBy = "book")
 	@JsonIgnore
-	@JoinColumn(name = "loan_id")
 	private Loan loan;
 	
 	@ManyToMany
