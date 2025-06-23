@@ -8,19 +8,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.spidertech.libarySp.entities.Loan;
-import com.spidertech.libarySp.services.LoanService;
+import com.spidertech.libarySp.entities.Book;
+import com.spidertech.libarySp.services.BookService;
+
 
 @RestController
-@RequestMapping(value = "/loans")
-public class LoanResource {
-		
+@RequestMapping(value = "/books")
+public class BookResource {
+	
 	@Autowired
-	private LoanService service;
+	private BookService service;
 	
 	@GetMapping
-	public ResponseEntity<List<Loan>> findAll(){
-		List<Loan> list = service.findAll();
+	public ResponseEntity<List<Book>> findAll(){
+		List<Book> list = service.findAll();
 		return ResponseEntity.ok().body(list);
 	}
 }

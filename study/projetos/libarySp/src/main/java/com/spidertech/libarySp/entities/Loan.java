@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.spidertech.libarySp.entities.enums.LoanStatus;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -16,6 +17,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 
@@ -39,16 +41,21 @@ public class Loan implements Serializable{
 	@JsonIgnore
 	private User user;
 	
+	@OneToOne(cascade = CascadeType.DETACH)
+	@JoinColumn(name = "tb_book")
+	private Book book;
+	
 	public Loan() {
 		
 	}
 
-	public Loan(Long id, LoanStatus status, Instant date, User user) {
+	public Loan(Long id, LoanStatus status, Instant date, User user, Book book) {
 		super();
 		this.id = id;
 		this.status = status;
 		this.date = date;
 		this.user = user;
+		this.book = book;
 	}
 
 	public Long getId() {
@@ -81,6 +88,16 @@ public class Loan implements Serializable{
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+	
+	
+
+	public Book getBook() {
+		return book;
+	}
+
+	public void setBook(Book book) {
+		this.book = book;
 	}
 
 	@Override
