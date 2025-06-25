@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -26,7 +27,7 @@ public class User implements Serializable{
 	private String email;
 	private String phone;
 	
-	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	private Set<Loan> loans = new HashSet<>();
 	
 	public User () {
@@ -98,16 +99,11 @@ public class User implements Serializable{
 		return Objects.equals(id, other.id);
 	}
 
-
-	// dentro de User.java
 	public void updateFrom(User obj) {
 	    this.name = obj.getName();
 	    this.email = obj.getEmail();
 	    this.phone = obj.getPhone();
 	}
-
-
-	
 	
 
 }
