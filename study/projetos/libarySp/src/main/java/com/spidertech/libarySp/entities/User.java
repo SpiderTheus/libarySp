@@ -66,6 +66,10 @@ public class User implements Serializable{
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
 
 	public String getPhone() {
 		return phone;
@@ -95,6 +99,12 @@ public class User implements Serializable{
 	}
 
 
+	// dentro de User.java
+	public void updateFrom(User obj) {
+	    this.name = obj.getName();
+	    this.email = obj.getEmail();
+	    this.phone = obj.getPhone();
+	}
 
 
 	
