@@ -24,4 +24,9 @@ public class UserService {
 		Optional<User> obj = repository.findById(id);
 		return obj.get();
 	}
+	
+	public User isert(User obj) {
+		return repository.save(obj);
+	}
+	
 }
