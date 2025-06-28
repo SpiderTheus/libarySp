@@ -1,6 +1,7 @@
 package com.spidertech.libarySp.resources;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.spidertech.libarySp.entities.Loan;
 import com.spidertech.libarySp.entities.User;
 import com.spidertech.libarySp.services.UserService;
 
@@ -35,6 +37,12 @@ public class UserResource {
 		return ResponseEntity.ok().body(obj);
 	}
 
+	@GetMapping(value = "/{id}/loans")
+	public ResponseEntity<Set<Loan>> loansUser(@PathVariable Long id){
+		Set<Loan> list = service.loansUser(id);
+		return ResponseEntity.ok().body(list);
+	}
+	
 	@PostMapping
 	public ResponseEntity<User> isert(@RequestBody User obj) {
 		obj = service.isert(obj);
@@ -53,4 +61,7 @@ public class UserResource {
 		return ResponseEntity.noContent().build();
 
 	}
+	
+	
+	
 }

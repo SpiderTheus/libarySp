@@ -3,10 +3,12 @@ package com.spidertech.libarySp.services;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.spidertech.libarySp.entities.Loan;
 import com.spidertech.libarySp.entities.User;
 import com.spidertech.libarySp.repositores.UserRepository;
 
@@ -41,6 +43,9 @@ public class UserService {
 	
 	public void delete(Long id) {
 		repository.deleteById(id);
-	}
+	}	
 	
+	public Set<Loan> loansUser(Long id){
+		return findById(id).getLoans();
+	}
 }
