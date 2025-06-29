@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.spidertech.libarySp.dtos.UserDto;
 import com.spidertech.libarySp.entities.Loan;
 import com.spidertech.libarySp.entities.User;
 import com.spidertech.libarySp.services.UserService;
@@ -26,10 +27,13 @@ public class UserResource {
 	private UserService service;
 
 	@GetMapping
-	public ResponseEntity<List<User>> findAll() {
-		List<User> list = service.findAll();
+	public ResponseEntity<List<UserDto>> findAll() {
+		List<UserDto> list = service.findAll();
 		return ResponseEntity.ok().body(list);
 	}
+	
+	
+	
 
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<User> findById(@PathVariable Long id) {

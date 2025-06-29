@@ -8,6 +8,7 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.spidertech.libarySp.dtos.UserDto;
 import com.spidertech.libarySp.entities.Loan;
 import com.spidertech.libarySp.entities.User;
 import com.spidertech.libarySp.repositores.UserRepository;
@@ -18,8 +19,10 @@ public class UserService {
 	@Autowired
 	private UserRepository repository;
 	
-	public List<User> findAll() {
-		return repository.findAll();
+	public List<UserDto> findAll() {
+		
+		return repository.findAll().stream().map(UserDto::new).toList();
+		
 	}
 	
 	public User findById(Long id) {
