@@ -8,8 +8,8 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.spidertech.libarySp.dtos.LoanDto;
 import com.spidertech.libarySp.dtos.UserDto;
-import com.spidertech.libarySp.entities.Loan;
 import com.spidertech.libarySp.entities.User;
 import com.spidertech.libarySp.repositores.UserRepository;
 
@@ -25,9 +25,11 @@ public class UserService {
 		
 	}
 	
-	public User findById(Long id) {
+	public UserDto findById(Long id) {
 		Optional<User> obj = repository.findById(id);
-		return obj.get();
+		UserDto user = new UserDto(obj.get());
+		
+		return user;
 	}
 	
 	public User isert(User obj) {
@@ -48,7 +50,7 @@ public class UserService {
 		repository.deleteById(id);
 	}	
 	
-	public Set<Loan> loansUser(Long id){
+	public Set<LoanDto> loansUser(Long id){
 		return findById(id).getLoans();
 	}
 }
