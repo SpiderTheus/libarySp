@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.spidertech.libarySp.entities.Book;
+import com.spidertech.libarySp.dtos.BookDto;
 import com.spidertech.libarySp.services.BookService;
 
 
@@ -20,8 +20,8 @@ public class BookResource {
 	private BookService service;
 	
 	@GetMapping
-	public ResponseEntity<List<Book>> findAll(){
-		List<Book> list = service.findAll();
+	public ResponseEntity<List<BookDto>> findAll(){
+		List<BookDto> list = service.findAll();
 		return ResponseEntity.ok().body(list);
 	}
 }
