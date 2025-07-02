@@ -18,5 +18,11 @@ public class BookService {
 	public List<BookDto> findAll() {
 		return repository.findAll().stream().map(BookDto::new).toList();
 	}
+	
+	public List<BookDto> findByName(String title) {
 
+		return repository.findByTitleContainingIgnoreCase(title).stream().map(BookDto::new).toList();
+	}
+	
+	
 }
