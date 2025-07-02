@@ -93,11 +93,11 @@ public class TestConfig implements CommandLineRunner{
 		
 		authorRepository.saveAll(Arrays.asList(a1, a2, a3, a4));
 	
-		Book b1 = new Book(null, "O Estrangeiro",Set.of(a1), LocalDate.of(2020, 5, 20), true, Set.of(c1, c5), p3);
-		Book b2 = new Book(null, "1984",Set.of(a2), LocalDate.of(2018, 9, 15), true, Set.of(c1, c3, c4, c9), p5);
-		Book b3 = new Book(null, "Dom Casmurro",Set.of(a3), LocalDate.of(2015, 2, 10),true, Set.of(c1, c2), p1);
-		Book b4 = new Book(null, "A Revolução dos Bichos",Set.of(a2), LocalDate.of(2017, 11, 5), true, Set.of(c1, c5, c10), p5);
-		Book b5 = new Book(null, "O Pequeno Príncipe",Set.of(a4), LocalDate.of(2010, 3, 27), false, Set.of(c1, c2, c9), p7);
+		Book b1 = new Book("O Estrangeiro",Set.of(a1), LocalDate.of(2020, 5, 20), true, Set.of(c1, c5), p3);
+		Book b2 = new Book("1984",Set.of(a2), LocalDate.of(2018, 9, 15), true, Set.of(c1, c3, c4, c9), p5);
+		Book b3 = new Book("Dom Casmurro",Set.of(a3), LocalDate.of(2015, 2, 10),true, Set.of(c1, c2), p1);
+		Book b4 = new Book("A Revolução dos Bichos",Set.of(a2), LocalDate.of(2017, 11, 5), true, Set.of(c1, c5, c10), p5);
+		Book b5 = new Book("O Pequeno Príncipe",Set.of(a4), LocalDate.of(2010, 3, 27), false, Set.of(c1, c2, c9), p7);
 
 		bookRepository.saveAll(Arrays.asList(b1, b2, b3, b4, b5));
 	

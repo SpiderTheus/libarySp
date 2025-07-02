@@ -56,9 +56,8 @@ public class Book implements Serializable{
 		
 	}
 	
-	public Book(Long id, String title, Set<Author> authores, LocalDate datePublisher, boolean isAvalible, Set<Category> categories, Publisher publisher) {
+	public Book(String title, Set<Author> authores, LocalDate datePublisher, boolean isAvalible, Set<Category> categories, Publisher publisher) {
 		super();
-		this.id = id;
 		this.title = title;
 		this.authores = authores;
 		this.datePublisher = datePublisher;

@@ -44,6 +44,25 @@ public class Author implements Serializable{
 			this.birth = birth;
 		}
 
+		
+		
+		
+		public Long getId() {
+			return id;
+		}
+
+		public void setId(Long id) {
+			this.id = id;
+		}
+
+		public static long getSerialversionuid() {
+			return serialVersionUID;
+		}
+
+		public void setBooks(List<Book> books) {
+			this.books = books;
+		}
+
 		public String getName() {
 			return name;
 		}
