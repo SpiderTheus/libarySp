@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.spidertech.libarySp.entities.Loan;
+import com.spidertech.libarySp.dtos.LoanDto;
 import com.spidertech.libarySp.services.LoanService;
 
 @RestController
@@ -19,8 +19,8 @@ public class LoanResource {
 	private LoanService service;
 	
 	@GetMapping
-	public ResponseEntity<List<Loan>> findAll(){
-		List<Loan> list = service.findAll();
+	public ResponseEntity<List<LoanDto>> findAll(){
+		List<LoanDto> list = service.findAll();
 		return ResponseEntity.ok().body(list);
 	}
 }

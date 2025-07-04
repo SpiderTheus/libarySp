@@ -10,6 +10,7 @@ import com.spidertech.libarySp.entities.enums.LoanStatus;
 public class LoanDto {
 	private long id;
 	private long idBook;
+	private String user;
 	private String book;
 	private Instant date;
 	private LoanStatus status;
@@ -17,6 +18,7 @@ public class LoanDto {
 	public LoanDto(Loan loan) {
 		this.id = loan.getId();
 		this.setIdBook(loan.getBook().getId());
+		this.user = loan.getUser().getName();
 		this.book = loan.getBook().getTitle();
 		this.date = loan.getDate();
 		this.status = loan.getStatus();
@@ -32,6 +34,15 @@ public class LoanDto {
 
 	public void setId(long id) {
 		this.id = id;
+	}
+	
+
+	public String getUser() {
+		return user;
+	}
+
+	public void setUser(String user) {
+		this.user = user;
 	}
 
 	public String getBook() {
