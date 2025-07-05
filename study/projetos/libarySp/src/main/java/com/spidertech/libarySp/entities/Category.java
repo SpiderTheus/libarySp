@@ -29,14 +29,15 @@ public class Category  implements Serializable{
 	@JsonIgnore
 	private List<Book> books = new ArrayList<>();
 	
-	public Category() {
-		
+	
+
+	public Category(String name) {
+		super();
+		this.name = name;
 	}
 
-	public Category(Long id, String name) {
-		super();
-		this.id = id;
-		this.name = name;
+	public Category() {
+		
 	}
 
 	public Long getId() {

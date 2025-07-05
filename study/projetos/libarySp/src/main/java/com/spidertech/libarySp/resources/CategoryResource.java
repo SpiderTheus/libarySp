@@ -1,6 +1,7 @@
 package com.spidertech.libarySp.resources;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -41,6 +42,14 @@ public class CategoryResource {
 		obj = service.isert(obj);
 		return ResponseEntity.ok(obj);
 	}
+	
+	@PostMapping(value = "/{categories}")
+	public ResponseEntity<Set<Category>> isert(@PathVariable String categories) {
+		Set<Category> obj =  service.findByNameContaining(categories);
+		return ResponseEntity.ok().body(obj);
+	}
+	
+	
 	
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<Category> update(@PathVariable Long id, @RequestBody Category obj) {

@@ -59,16 +59,16 @@ public class TestConfig implements CommandLineRunner{
 		
 		userRepository.saveAll(Arrays.asList(u1, u2, u3, u4, u5));
 		
-		Category c1 = new Category(null, "Ficção");
-		Category c2 = new Category(null, "Romance");
-		Category c3 = new Category(null, "Terror");
-		Category c4 = new Category(null, "Suspense");
-		Category c5 = new Category(null, "Drama");
-		Category c6 = new Category(null, "Ciência");
-		Category c7 = new Category(null, "Biografia");
-		Category c8 = new Category(null, "Autoajuda");
-		Category c9 = new Category(null, "Tecnologia");
-		Category c10 = new Category(null, "História");
+		Category c1 = new Category("Ficção");
+		Category c2 = new Category("Romance");
+		Category c3 = new Category("Terror");
+		Category c4 = new Category("Suspense");
+		Category c5 = new Category("Drama");
+		Category c6 = new Category("Ciência");
+		Category c7 = new Category("Biografia");
+		Category c8 = new Category("Autoajuda");
+		Category c9 = new Category("Tecnologia");
+		Category c10 = new Category("História");
 
 		categoryRepository.saveAll(Arrays.asList(c1, c2, c3, c4, c5, c6, c7, c8, c9, c10));
 
