@@ -8,6 +8,7 @@ import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.spidertech.libarySp.entities.builders.BookBuilder;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -56,14 +57,14 @@ public class Book implements Serializable{
 		
 	}
 	
-	public Book(String title, Set<Author> authores, LocalDate datePublisher, boolean isAvalible, Set<Category> categories, Publisher publisher) {
+	public Book(BookBuilder builder) {
 		super();
-		this.title = title;
-		this.authores = authores;
-		this.datePublisher = datePublisher;
-		this.isAvalible = isAvalible;
-		this.categories = categories;
-		this.publisher = publisher;
+		this.title = builder.getTitle();
+		this.authores = builder.getAuthores();
+		this.datePublisher = builder.getDatePublisher();
+		this.isAvalible = builder.isAvalible();
+		this.categories = builder.getCategories();
+		this.publisher = builder.getPublisher();
 	}
 
 	public Long getId() {

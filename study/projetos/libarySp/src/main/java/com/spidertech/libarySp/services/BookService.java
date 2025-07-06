@@ -15,6 +15,8 @@ public class BookService {
 	@Autowired
 	private BookRepository repository;
 	
+
+	
 	public List<BookDto> findAll() {
 		return repository.findAll().stream().map(BookDto::new).toList();
 	}

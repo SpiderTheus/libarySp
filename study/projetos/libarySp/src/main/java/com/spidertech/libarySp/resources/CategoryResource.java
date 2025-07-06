@@ -43,9 +43,9 @@ public class CategoryResource {
 		return ResponseEntity.ok(obj);
 	}
 	
-	@PostMapping(value = "/{categories}")
+	@PostMapping(value = "/{categories}") 
 	public ResponseEntity<Set<Category>> isert(@PathVariable String categories) {
-		Set<Category> obj =  service.findByNameContaining(categories);
+		Set<Category> obj =  service.insertByNamesContaining(categories);
 		return ResponseEntity.ok().body(obj);
 	}
 	

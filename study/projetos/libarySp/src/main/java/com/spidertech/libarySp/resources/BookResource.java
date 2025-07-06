@@ -20,6 +20,7 @@ public class BookResource {
 	@Autowired
 	private BookService service;
 	
+	
 	@GetMapping
 	public ResponseEntity<List<BookDto>> findAll(){
 		List<BookDto> list = service.findAll();

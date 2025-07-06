@@ -28,7 +28,7 @@ public class CategoryService {
 		return obj.get();
 	}
 
-	public Set<Category> findByNameContaining(String name){
+	public Set<Category> insertByNamesContaining(String name){
 		
 		Set<Category> nameCategories = Arrays.stream(name.split(","))
 				.map(String::trim).map(n -> repository.findByNameContainingIgnoreCase(n)
