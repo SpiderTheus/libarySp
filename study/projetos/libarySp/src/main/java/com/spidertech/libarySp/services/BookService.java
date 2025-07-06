@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spidertech.libarySp.dtos.BookDto;
+import com.spidertech.libarySp.entities.Book;
 import com.spidertech.libarySp.repositores.BookRepository;
 
 @Service
@@ -22,9 +23,13 @@ public class BookService {
 	}
 	
 	public List<BookDto> findByName(String title) {
-
 		return repository.findByTitleContainingIgnoreCase(title).stream().map(BookDto::new).toList();
 	}
+	
+	public Book insert(Book obj) {
+		return repository.save(obj);
+	}
+	
 	
 	
 }
