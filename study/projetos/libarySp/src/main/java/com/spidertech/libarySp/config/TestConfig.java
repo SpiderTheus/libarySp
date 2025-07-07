@@ -10,6 +10,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
+import com.spidertech.libarySp.dtos.BookBuilderDto;
 import com.spidertech.libarySp.entities.Author;
 import com.spidertech.libarySp.entities.Book;
 import com.spidertech.libarySp.entities.Category;
@@ -104,26 +105,35 @@ public class TestConfig implements CommandLineRunner {
 
 		authorRepository.saveAll(Arrays.asList(a1, a2, a3, a4));
 
-		Book b1 = new BookBuilder(authorService, categoryService, publisherService).title("O Estrangeiro")
-				.authores(Set.of(a1.getId())).datePublisher(LocalDate.of(2020, 5, 20)).isAvalible(true)
-				.categories(c1.getName() + "," + c5.getName()).publisher(p3.getId()).build();
+		
+		BookBuilderDto bD1 = new BookBuilderDto("O Estrangeiro", Set.of(a1.getId()), LocalDate.of(2020, 5, 20), true,
+				c1.getName() + "," + c5.getName(), p3.getId());
+		
+		Book b1 = new BookBuilder(authorService, categoryService, publisherService, bD1).build();
 
-		Book b2 = new BookBuilder(authorService, categoryService, publisherService).title("1984")
-				.authores(Set.of(a2.getId())).datePublisher(LocalDate.of(2018, 9, 15)).isAvalible(true)
-				.categories(c1.getName() + "," + c3.getName() + "," + c4.getName() + "," + c9.getName())
-				.publisher(p5.getId()).build();
+		
+		BookBuilderDto bD2 = new BookBuilderDto("1984", Set.of(a2.getId()), LocalDate.of(2018, 9, 15), true,
+				c1.getName() + "," + c3.getName() + "," + c4.getName() + "," + c9.getName(), p5.getId());
+		
+		Book b2 = new BookBuilder(authorService, categoryService, publisherService, bD2).build();
 
-		Book b3 = new BookBuilder(authorService, categoryService, publisherService).title("Dom Casmurro")
-				.authores(Set.of(a3.getId())).datePublisher(LocalDate.of(2015, 2, 10)).isAvalible(true)
-				.categories(c1.getName() + "," + c2.getName()).publisher(p1.getId()).build();
+		
+		BookBuilderDto bD3 = new BookBuilderDto("Dom Casmurro", Set.of(a3.getId()), LocalDate.of(2015, 2, 10), true,
+				c1.getName() + "," + c2.getName(), p1.getId());
+		
+		Book b3 = new BookBuilder(authorService, categoryService, publisherService, bD3).build();
 
-		Book b4 = new BookBuilder(authorService, categoryService, publisherService).title("A Revolução dos Bichos")
-				.authores(Set.of(a2.getId())).datePublisher(LocalDate.of(2017, 11, 5)).isAvalible(true)
-				.categories(c1.getName() + "," + c5.getName() + "," + c10.getName()).publisher(p5.getId()).build();
+		
+		BookBuilderDto bD4 = new BookBuilderDto("A Revolução dos Bichos", Set.of(a2.getId()), LocalDate.of(2017, 11, 5),
+				true, c1.getName() + "," + c5.getName() + "," + c10.getName(), p5.getId());
+		
+		Book b4 = new BookBuilder(authorService, categoryService, publisherService, bD4).build();
 
-		Book b5 = new BookBuilder(authorService, categoryService, publisherService).title("O Pequeno Príncipe")
-				.authores(Set.of(a4.getId())).datePublisher(LocalDate.of(2010, 3, 27)).isAvalible(false)
-				.categories(c1.getName() + "," + c2.getName() + "," + c9.getName()).publisher(p7.getId()).build();
+		
+		BookBuilderDto bD5 = new BookBuilderDto("O Pequeno Príncipe", Set.of(a4.getId()), LocalDate.of(2010, 3, 27),
+				false, c1.getName() + "," + c2.getName() + "," + c9.getName(), p7.getId());
+		
+		Book b5 = new BookBuilder(authorService, categoryService, publisherService, bD5).build();
 
 		bookRepository.saveAll(Arrays.asList(b1, b2, b3, b4, b5));
 

@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import com.spidertech.libarySp.dtos.BookBuilderDto;
 import com.spidertech.libarySp.entities.Author;
 import com.spidertech.libarySp.entities.Book;
 import com.spidertech.libarySp.entities.Category;
@@ -27,10 +28,19 @@ public class BookBuilder {
 	private Publisher publisher;
 
 	public BookBuilder(AuthorService authorService, CategoryService categoryService,
-			PublisherService publisherService) {
+			PublisherService publisherService, BookBuilderDto bookBuilderDto) {
 		this.authorService = authorService;
 		this.categoryService = categoryService;
 		this.publisherService = publisherService;
+		
+		
+		title(bookBuilderDto.getTitle());
+		authores(bookBuilderDto.getIdAuthors());
+		datePublisher(bookBuilderDto.getDatePublisher());
+		isAvalible(bookBuilderDto.isAvalible());
+		categories(bookBuilderDto.getNameCategory());
+		publisher(bookBuilderDto.getIdPublisher());
+		build();
 	}
 
 	public BookBuilder title(String title) {

@@ -13,12 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.spidertech.libarySp.dtos.BookBuilderDto;
 import com.spidertech.libarySp.dtos.BookDto;
-import com.spidertech.libarySp.entities.Book;
-import com.spidertech.libarySp.entities.builders.BookBuilder;
-import com.spidertech.libarySp.services.AuthorService;
 import com.spidertech.libarySp.services.BookService;
-import com.spidertech.libarySp.services.CategoryService;
-import com.spidertech.libarySp.services.PublisherService;
 
 @RestController
 @RequestMapping(value = "/books")
@@ -26,15 +21,6 @@ public class BookResource {
 
 	@Autowired
 	private BookService service;
-
-	@Autowired
-	private AuthorService authorService;
-
-	@Autowired
-	private CategoryService categoryService;
-
-	@Autowired
-	private PublisherService publisherService;
 
 	@GetMapping
 	public ResponseEntity<List<BookDto>> findAll() {
@@ -52,15 +38,11 @@ public class BookResource {
 	}
 
 	@PostMapping
-	public ResponseEntity<Book> isert(@RequestBody BookBuilderDto obj) {
+	public ResponseEntity<BookBuilderDto> isert(@RequestBody BookBuilderDto obj) {
 
-		Book book = new BookBuilder(authorService, categoryService, publisherService).title(obj.getTitle())
-				.authores(obj.getIdAuthors()).datePublisher(obj.getDatePublisher()).isAvalible(obj.isAvalible())
-				.categories(obj.getNameCategory()).publisher(obj.getIdPublisher()).build();
+		service.insert(obj);
 
-		service.insert(book);
-
-		return ResponseEntity.ok(book);
+		return ResponseEntity.ok(obj);
 
 	}
 
