@@ -46,15 +46,19 @@ public class BookService {
 		return repository.save(book);
 	}
 
-	/*public Book update(Long id, BookBuilderDto obj) {
+	public Book update(Long id, BookDto obj) {
+		Book bookUpdate = new BookBuilder(authorService, categoryService, publisherService, obj).build();		
 		
-		Book book = findById(id).get();		
-		book.setTitle(obj.getTitle());
+		Book book = findById(id).get();
+		if(bookUpdate.getTitle() != null) book.setTitle(bookUpdate.getTitle());
+		if(bookUpdate.getAuthores() != null) book.setAuthores(bookUpdate.getAuthores());
+		if(bookUpdate.getDatePublisher() != null) book.setDatePublisher(bookUpdate.getDatePublisher());
+		if(bookUpdate.isAvalible() != book.isAvalible()) book.setAvalible(bookUpdate.isAvalible());
+		if(bookUpdate.getCategories() != null) book.setCategories(bookUpdate.getCategories());
+		if(bookUpdate.getPublisher() != null) book.setPublisher(bookUpdate.getPublisher());
+			
 		
-		
-		
-		
-		
-	}*/
+		return repository.save(book);
+	}
 
 }

@@ -23,40 +23,38 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "tb_book")
-public class Book implements Serializable{
+public class Book implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String title;
-	
+
 	@ManyToMany
 	@JoinTable(name = "tb_book_author", joinColumns = @JoinColumn(name = "book_id"), inverseJoinColumns = @JoinColumn(name = "author_id"))
 	private Set<Author> authores = new HashSet<>();
-	
+
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'", timezone = "GMT")
 	private LocalDate datePublisher;
 	private boolean isAvalible;
-	
 
 	@OneToOne(mappedBy = "book")
 	@JsonIgnore
 	private Loan loan;
-	
+
 	@ManyToMany
 	@JoinTable(name = "tb_book_category", joinColumns = @JoinColumn(name = "book_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
 	private Set<Category> categories = new HashSet<>();
-	
+
 	@ManyToOne
 	@JoinColumn(name = "publisher_id")
 	private Publisher publisher;
-	
-	
+
 	public Book() {
-		
+
 	}
-	
+
 	public Book(BookBuilder builder) {
 		super();
 		this.title = builder.getTitle();
@@ -107,10 +105,18 @@ public class Book implements Serializable{
 		this.loan = loan;
 	}
 
+	public void setAuthores(Set<Author> authores) {
+		this.authores = authores;
+	}
+
+	public void setCategories(Set<Category> categories) {
+		this.categories = categories;
+	}
+
 	public Set<Category> getCategories() {
 		return categories;
 	}
-	
+
 	public Publisher getPublisher() {
 		return publisher;
 	}
@@ -118,13 +124,10 @@ public class Book implements Serializable{
 	public void setPublisher(Publisher publisher) {
 		this.publisher = publisher;
 	}
-	
-	
 
 	public Set<Author> getAuthores() {
 		return authores;
 	}
-
 
 	@Override
 	public int hashCode() {
@@ -143,9 +146,4 @@ public class Book implements Serializable{
 		return Objects.equals(id, other.id);
 	}
 
-
-	
-	
-	
-	
 }

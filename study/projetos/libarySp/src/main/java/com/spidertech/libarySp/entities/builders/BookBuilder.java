@@ -40,7 +40,6 @@ public class BookBuilder {
 		isAvalible(bookDto.isAvalible());
 		categories(bookDto.getCategories());
 		publisher(bookDto.getPublisher());
-		build();
 	}
 
 	public BookBuilder title(String title) {
