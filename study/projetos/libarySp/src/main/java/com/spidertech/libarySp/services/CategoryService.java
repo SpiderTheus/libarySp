@@ -1,6 +1,5 @@
 package com.spidertech.libarySp.services;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -28,12 +27,12 @@ public class CategoryService {
 		return obj.get();
 	}
 
-	public Set<Category> insertByNamesContaining(String name){
+	public Set<Category> insertByNamesContaining(Set<String> categories){
 		
-		Set<Category> nameCategories = Arrays.stream(name.split(","))
-				.map(String::trim).map(n -> repository.findByNameContainingIgnoreCase(n)
-						.orElseGet(() -> isert(new Category(n))))
-			    .collect(Collectors.toSet());
+		
+		Set<Category> nameCategories = repository.findAll().stream().filter(c -> categories.contains(c.getName())).collect(Collectors.toSet());
+	
+		
 		
 		return nameCategories;
 		

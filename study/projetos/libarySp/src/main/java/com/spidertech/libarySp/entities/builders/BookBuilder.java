@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import com.spidertech.libarySp.dtos.BookBuilderDto;
+import com.spidertech.libarySp.dtos.BookDto;
 import com.spidertech.libarySp.entities.Author;
 import com.spidertech.libarySp.entities.Book;
 import com.spidertech.libarySp.entities.Category;
@@ -28,18 +28,18 @@ public class BookBuilder {
 	private Publisher publisher;
 
 	public BookBuilder(AuthorService authorService, CategoryService categoryService,
-			PublisherService publisherService, BookBuilderDto bookBuilderDto) {
+			PublisherService publisherService, BookDto bookDto) {
 		this.authorService = authorService;
 		this.categoryService = categoryService;
 		this.publisherService = publisherService;
 		
 		
-		title(bookBuilderDto.getTitle());
-		authores(bookBuilderDto.getIdAuthors());
-		datePublisher(bookBuilderDto.getDatePublisher());
-		isAvalible(bookBuilderDto.isAvalible());
-		categories(bookBuilderDto.getNameCategory());
-		publisher(bookBuilderDto.getIdPublisher());
+		title(bookDto.getTitle());
+		authores(bookDto.getIdAuthors());
+		datePublisher(bookDto.getDatePublisher());
+		isAvalible(bookDto.isAvalible());
+		categories(bookDto.getCategories());
+		publisher(bookDto.getPublisher());
 		build();
 	}
 
@@ -63,13 +63,15 @@ public class BookBuilder {
 		return this;
 	}
 
-	public BookBuilder categories(String nameCategory) {
-		this.categories = categoryService.insertByNamesContaining(nameCategory);
+	public BookBuilder categories(Set<String> categories) {
+		System.out.println("--------" + this.categories);
+		this.categories = categoryService.insertByNamesContaining(categories);
+		
 		return this;
 	}
 
-	public BookBuilder publisher(Long idPublisher) {
-		this.publisher = publisherService.findById(idPublisher);
+	public BookBuilder publisher(String publisher) {
+		this.publisher = publisherService.findByName(publisher);
 		return this;
 	}
 
@@ -77,6 +79,9 @@ public class BookBuilder {
 		return new Book(this);
 	}
 
+	
+	
+	
 	public String getTitle() {
 		return title;
 	}

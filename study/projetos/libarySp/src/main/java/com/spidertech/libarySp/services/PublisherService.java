@@ -26,6 +26,13 @@ public class PublisherService {
 		return obj.get();
 	}
 	
+	public Publisher findByName(String name) {
+		Optional<Publisher> obj = repository.findByName(name);
+		
+		return obj.get();
+	}
+	
+	
 	public Publisher isert(Publisher obj) {
 		return repository.save(obj);
 	}

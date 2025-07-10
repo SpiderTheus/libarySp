@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.spidertech.libarySp.dtos.BookBuilderDto;
 import com.spidertech.libarySp.dtos.BookDto;
+import com.spidertech.libarySp.entities.Book;
 import com.spidertech.libarySp.services.BookService;
 
 @RestController
@@ -38,11 +38,11 @@ public class BookResource {
 	}
 
 	@PostMapping
-	public ResponseEntity<BookBuilderDto> isert(@RequestBody BookBuilderDto obj) {
+	public ResponseEntity<Book> isert(@RequestBody BookDto obj) {
 
-		service.insert(obj);
+		Book book = service.insert(obj);
 
-		return ResponseEntity.ok(obj);
+		return ResponseEntity.ok(book);
 
 	}
 

@@ -6,7 +6,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.spidertech.libarySp.dtos.BookBuilderDto;
 import com.spidertech.libarySp.dtos.BookDto;
 import com.spidertech.libarySp.entities.Book;
 import com.spidertech.libarySp.entities.builders.BookBuilder;
@@ -40,7 +39,7 @@ public class BookService {
 		return repository.findByTitleContainingIgnoreCase(title).stream().map(BookDto::new).toList();
 	}
 
-	public Book insert(BookBuilderDto obj) {
+	public Book insert(BookDto obj) {
 		
 		Book book = new BookBuilder(authorService, categoryService, publisherService, obj).build();
 
