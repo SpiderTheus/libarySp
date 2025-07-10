@@ -25,6 +25,9 @@ public class BookService {
 
 	@Autowired
 	private PublisherService publisherService;
+	
+	@Autowired
+	private LoanService loanService;
 
 	public List<BookDto> findAll() {
 		return repository.findAll().stream().map(BookDto::new).toList();
@@ -60,5 +63,14 @@ public class BookService {
 		
 		return repository.save(book);
 	}
+	
+	
+	public void delete(Long id) {
+		if(loanService.existsByBookId(id)) {
+			throw new IllegalStateException("It is not possible to delete the book because it is associated with loans");
+		}
+		repository.deleteById(id);
+	}	
+	
 
 }

@@ -19,4 +19,9 @@ public class LoanService {
 		return repository.findAll().stream().map(LoanDto::new).toList();
 	}
 	
+	public boolean existsByBookId(Long id) {
+
+		return repository.existsByBookId(id);
+	};
+	
 }

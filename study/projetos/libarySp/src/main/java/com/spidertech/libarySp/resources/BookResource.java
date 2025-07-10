@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.spidertech.libarySp.dtos.BookDto;
 import com.spidertech.libarySp.entities.Book;
+import com.spidertech.libarySp.repositores.LoanRepository;
 import com.spidertech.libarySp.services.BookService;
 
 @RestController
@@ -22,6 +24,9 @@ public class BookResource {
 
 	@Autowired
 	private BookService service;
+	
+	@Autowired
+	private LoanRepository loanRepository;
 
 	@GetMapping
 	public ResponseEntity<List<BookDto>> findAll() {
@@ -53,5 +58,14 @@ public class BookResource {
 		return ResponseEntity.ok().body(obj);
 	}
 	
+	
+	@DeleteMapping(value = "/{id}")
+	public ResponseEntity<Void> delete(@PathVariable Long id) {
+		if (loanRepository.existsByBookId(id)) {
+		    throw new IllegalStateException("Não é possível remover o livro, pois ele está associado a empréstimos.");
+		}
+		service.delete(id);
+		return ResponseEntity.noContent().build();
+	}
 
 }
