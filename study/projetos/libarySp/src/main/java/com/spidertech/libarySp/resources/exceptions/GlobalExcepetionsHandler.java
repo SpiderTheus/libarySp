@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.spidertech.libarySp.services.exceptions.NameNotNullException;
 import com.spidertech.libarySp.services.exceptions.ResourceNotFoundException;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -23,6 +24,14 @@ public class GlobalExcepetionsHandler {
 		return ResponseEntity.status(status).body(err);
 	}
 	
+	@ExceptionHandler(NameNotNullException.class)
+	public ResponseEntity<ErrorResponse> nameNotNullException(NameNotNullException e, HttpServletRequest request){
+		String mensage = "Null name attribute";
+		HttpStatus status = HttpStatus.BAD_REQUEST;
+		ErrorResponse err = new ErrorResponse(Instant.now(), status.value(), mensage, e.getMessage(), request.getRequestURI());
+		
+		return ResponseEntity.status(status).body(err);
+	}
 
 	
 }

@@ -11,6 +11,7 @@ import com.spidertech.libarySp.dtos.LoanDto;
 import com.spidertech.libarySp.dtos.UserDto;
 import com.spidertech.libarySp.entities.User;
 import com.spidertech.libarySp.repositores.UserRepository;
+import com.spidertech.libarySp.services.exceptions.NameNotNullException;
 import com.spidertech.libarySp.services.exceptions.ResourceNotFoundException;
 
 @Service
@@ -28,12 +29,17 @@ public class UserService {
 	public UserDto findById(Long id) {
 		
 		return new UserDto(repository.findById(id).orElseThrow(()-> new ResourceNotFoundException(id)));
-		
 		 
 	}
 	
 	public User isert(User obj) {
-		return repository.save(obj);
+		
+		if(obj.getName() != null)return repository.save(obj);
+		else throw new NameNotNullException();
+		
+		  
+		
+		
 	}
 	
 	public User update(Long id, User obj) {
