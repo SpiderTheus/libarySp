@@ -29,7 +29,8 @@ public class UserService {
 
 	public UserDto findById(Long id) {
 
-		return new UserDto(repository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id)));
+		return new UserDto(
+				repository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id, "User not found.")));
 
 	}
 
@@ -45,25 +46,24 @@ public class UserService {
 	public User update(Long id, User obj) {
 		try {
 			User entity = repository.getReferenceById(id);
-			
-			
-			
 			updateData(entity, obj);
 			return repository.save(entity);
 		} catch (EntityNotFoundException e) {
-			throw new ResourceNotFoundException(id);
-		}  
-		
-		
+			throw new ResourceNotFoundException(id, "User not found to update.");
+		}
+
 	}
 
 	public void updateData(User entity, User obj) {
-		
 		entity.updateFrom(obj);
 	}
 
 	public void delete(Long id) {
+		if (!repository.existsById(id))
+			throw new ResourceNotFoundException(id, "User not found to delete.");
+
 		repository.deleteById(id);
+
 	}
 
 	public Set<LoanDto> loansUser(Long id) {
