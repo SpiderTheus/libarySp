@@ -49,7 +49,7 @@ public class UserService {
 			updateData(entity, obj);
 			return repository.save(entity);
 		} catch (EntityNotFoundException e) {
-			throw new ResourceNotFoundException(id, "User not found to update.");
+			throw new ResourceNotFoundException(id, "User not updated.");
 		}
 
 	}
@@ -60,13 +60,14 @@ public class UserService {
 
 	public void delete(Long id) {
 		if (!repository.existsById(id))
-			throw new ResourceNotFoundException(id, "User not found to delete.");
+			throw new ResourceNotFoundException(id, "User not deleted.");
 
 		repository.deleteById(id);
 
 	}
 
 	public Set<LoanDto> loansUser(Long id) {
+		
 		return findById(id).getLoans();
 	}
 }
