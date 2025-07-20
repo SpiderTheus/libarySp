@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.spidertech.libarySp.services.exceptions.NameNotNullException;
+import com.spidertech.libarySp.services.exceptions.NoResultsFoundException;
 import com.spidertech.libarySp.services.exceptions.ResourceNotDeleteAssociationsException;
 import com.spidertech.libarySp.services.exceptions.ResourceNotFoundException;
 
@@ -41,6 +42,11 @@ public class GlobalExcepetionsHandler {
 		ErrorResponse err = new ErrorResponse(Instant.now(), status.value(), mensage, e.getMessage(), request.getRequestURI());
 		
 		return ResponseEntity.status(status).body(err);
+	}
+	
+	@ExceptionHandler(NoResultsFoundException.class)
+	public ResponseEntity<Void> noResultsFoundException(NoResultsFoundException e){
+		return ResponseEntity.noContent().build();
 	}
 	
 }

@@ -24,4 +24,6 @@ public class LoanService {
 		return repository.existsByBookId(id);
 	};
 	
+	
+	
 }

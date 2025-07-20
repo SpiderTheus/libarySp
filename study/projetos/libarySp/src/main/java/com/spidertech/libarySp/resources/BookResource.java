@@ -37,6 +37,7 @@ public class BookResource {
 
 		title = title.replace("-", " ");
 		System.out.println(title);
+		
 		List<BookDto> list = service.findByName(title);
 		return ResponseEntity.ok().body(list);
 	}

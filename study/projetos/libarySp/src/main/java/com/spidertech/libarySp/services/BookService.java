@@ -8,9 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spidertech.libarySp.dtos.BookDto;
+import com.spidertech.libarySp.dtos.LoanDto;
 import com.spidertech.libarySp.entities.Book;
+import com.spidertech.libarySp.entities.User;
 import com.spidertech.libarySp.entities.builders.BookBuilder;
 import com.spidertech.libarySp.repositores.BookRepository;
+import com.spidertech.libarySp.services.exceptions.NoResultsFoundException;
 import com.spidertech.libarySp.services.exceptions.ResourceNotDeleteAssociationsException;
 import com.spidertech.libarySp.services.exceptions.ResourceNotFoundException;
 
@@ -42,7 +45,12 @@ public class BookService {
 	}
 
 	public List<BookDto> findByName(String title) {
-		return repository.findByTitleContainingIgnoreCase(title).stream().map(BookDto::new).toList();
+	
+		List<BookDto> books = repository.findByTitleContainingIgnoreCase(title).stream().map(BookDto::new).toList();
+		if(books.isEmpty())
+			throw new NoResultsFoundException(title);
+		
+		return books;
 	}
 
 	public Book insert(BookDto obj) {
@@ -87,5 +95,21 @@ public class BookService {
 		
 		repository.deleteById(id);
 	}
+	
+	/*public LoanDto lendBook(Book book, User user) {
+		try {
+			if(book.isAvalible()) {
+				
+				
+				
+			}
+		} catch(RuntimeException e) {
+			e.printStackTrace();
+		}
+		
+	}*/
+	
+	
+	
 
 }
