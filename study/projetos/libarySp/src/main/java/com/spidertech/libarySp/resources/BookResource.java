@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.spidertech.libarySp.dtos.BookDto;
 import com.spidertech.libarySp.entities.Book;
-import com.spidertech.libarySp.repositores.LoanRepository;
 import com.spidertech.libarySp.services.BookService;
 
 @RestController
@@ -25,8 +24,7 @@ public class BookResource {
 	@Autowired
 	private BookService service;
 	
-	@Autowired
-	private LoanRepository loanRepository;
+
 
 	@GetMapping
 	public ResponseEntity<List<BookDto>> findAll() {
@@ -61,9 +59,6 @@ public class BookResource {
 	
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Long id) {
-		if (loanRepository.existsByBookId(id)) {
-		    throw new IllegalStateException("Não é possível remover o livro, pois ele está associado a empréstimos.");
-		}
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}

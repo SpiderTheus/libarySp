@@ -11,6 +11,7 @@ import com.spidertech.libarySp.dtos.BookDto;
 import com.spidertech.libarySp.entities.Book;
 import com.spidertech.libarySp.entities.builders.BookBuilder;
 import com.spidertech.libarySp.repositores.BookRepository;
+import com.spidertech.libarySp.services.exceptions.ResourceNotDeleteAssociationsException;
 import com.spidertech.libarySp.services.exceptions.ResourceNotFoundException;
 
 @Service
@@ -77,14 +78,12 @@ public class BookService {
 
 	public void delete(Long id) {
 		
-		if(repository.existsById(id))
+		if(!repository.existsById(id))
 			throw new ResourceNotFoundException(id, "Book not deleted");
 		
 		if (loanService.existsByBookId(id)) {
-			throw new IllegalStateException(
-					"It is not possible to delete the book because it is associated with loans");
+			throw new ResourceNotDeleteAssociationsException("Loans");
 		} 
-		
 		
 		repository.deleteById(id);
 	}

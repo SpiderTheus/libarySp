@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.spidertech.libarySp.services.exceptions.NameNotNullException;
+import com.spidertech.libarySp.services.exceptions.ResourceNotDeleteAssociationsException;
 import com.spidertech.libarySp.services.exceptions.ResourceNotFoundException;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -33,5 +34,13 @@ public class GlobalExcepetionsHandler {
 		return ResponseEntity.status(status).body(err);
 	}
 
+	@ExceptionHandler(ResourceNotDeleteAssociationsException.class)
+	public ResponseEntity<ErrorResponse> resourceNotDeleteAssociationsException(ResourceNotDeleteAssociationsException e, HttpServletRequest request){
+		String mensage = "Resource with assosiations";
+		HttpStatus status = HttpStatus.BAD_REQUEST;
+		ErrorResponse err = new ErrorResponse(Instant.now(), status.value(), mensage, e.getMessage(), request.getRequestURI());
+		
+		return ResponseEntity.status(status).body(err);
+	}
 	
 }
