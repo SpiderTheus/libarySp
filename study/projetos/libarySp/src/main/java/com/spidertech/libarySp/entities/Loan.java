@@ -48,9 +48,8 @@ public class Loan implements Serializable{
 		
 	}
 
-	public Loan(Long id, LoanStatus status, Instant date, User user, Book book) {
+	public Loan( LoanStatus status, Instant date, User user, Book book) {
 		super();
-		this.id = id;
 		this.status = status;
 		this.date = date;
 		this.user = user;

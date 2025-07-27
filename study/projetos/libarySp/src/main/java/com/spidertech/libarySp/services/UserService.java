@@ -27,10 +27,9 @@ public class UserService {
 
 	}
 
-	public UserDto findById(Long id) {
+	public User findById(Long id) {
 
-		return new UserDto(
-				repository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id, "User not found.")));
+		return	repository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id, "User not found."));
 
 	}
 
@@ -67,7 +66,10 @@ public class UserService {
 	}
 
 	public Set<LoanDto> loansUser(Long id) {
+	
+		UserDto user = new UserDto(findById(id));
 		
-		return findById(id).getLoans();
+		
+		return user.getLoans();
 	}
 }

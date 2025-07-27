@@ -1,3 +1,4 @@
+
 package com.spidertech.libarySp.resources;
 
 import java.util.List;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.spidertech.libarySp.dtos.BookDto;
+import com.spidertech.libarySp.dtos.LoanDto;
 import com.spidertech.libarySp.entities.Book;
 import com.spidertech.libarySp.services.BookService;
 
@@ -63,5 +65,19 @@ public class BookResource {
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
+	
+	//create loan
+	@PostMapping("/book/{bookId}/user/{userId}")
+	public ResponseEntity<LoanDto> loanBooK(@PathVariable Long bookId, @PathVariable Long userId){
+		LoanDto loan = new LoanDto(service.lendBook(bookId, userId));
+		return ResponseEntity.ok(loan);
+		
+		
+	}
+	
+	
+	
+	
+	
 
 }

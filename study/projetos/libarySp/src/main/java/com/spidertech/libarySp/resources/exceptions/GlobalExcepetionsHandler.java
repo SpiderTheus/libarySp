@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.spidertech.libarySp.services.exceptions.NameNotNullException;
 import com.spidertech.libarySp.services.exceptions.NoResultsFoundException;
+import com.spidertech.libarySp.services.exceptions.ResourceNotAvailableException;
 import com.spidertech.libarySp.services.exceptions.ResourceNotDeleteAssociationsException;
 import com.spidertech.libarySp.services.exceptions.ResourceNotFoundException;
 
@@ -49,4 +50,13 @@ public class GlobalExcepetionsHandler {
 		return ResponseEntity.noContent().build();
 	}
 	
+	
+	@ExceptionHandler(ResourceNotAvailableException.class)
+	public ResponseEntity<ReplyMessage> resourceNotAvailableExcpetion(ResourceNotAvailableException e){
+	HttpStatus status = HttpStatus.NOT_FOUND;
+	ReplyMessage err = new ReplyMessage(Instant.now(), status.value(), e.getMessage());
+	
+	return ResponseEntity.status(status).body(err);
+	}
+		
 }

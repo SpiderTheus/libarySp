@@ -11,7 +11,6 @@ import com.spidertech.libarySp.entities.Book;
 
 public class BookDto {
 	
-	private Long id;
 	private String title;
 	private Set<Long> idAuthors = new HashSet<>();
 	private Set<String> authores = new HashSet<>();
@@ -24,10 +23,10 @@ public class BookDto {
 	public BookDto() {
 		
 	}
-	
+	 
 	public BookDto(Book book) {
 		BeanUtils.copyProperties(book, this);
-		this.idAuthors = 	book.getAuthores().stream().map(a -> a.getId()).collect(Collectors.toSet());
+		this.idAuthors = book.getAuthores().stream().map(a -> a.getId()).collect(Collectors.toSet());
 		this.authores =	book.getAuthores().stream().map(a -> a.getName()).collect(Collectors.toSet());
 		
 		this.idCategories = book.getCategories().stream().map(a -> a.getId()).collect(Collectors.toSet());
@@ -37,13 +36,7 @@ public class BookDto {
 	}
 
 	
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
+	
 
 	public String getTitle() {
 		return title;

@@ -174,11 +174,11 @@ public class TestConfig implements CommandLineRunner {
 
 		bookRepository.saveAll(Arrays.asList(b1, b2, b3, b4, b5));
 
-		Loan l1 = new Loan(null, LoanStatus.ACTIVE, Instant.parse("2024-06-10T10:00:00Z"), u1, b1);
-		Loan l2 = new Loan(null, LoanStatus.LATE, Instant.parse("2024-06-12T14:30:00Z"), u2, b2);
-		Loan l3 = new Loan(null, LoanStatus.RETURNED, Instant.parse("2024-05-20T09:15:00Z"), u3, b3);
-		Loan l4 = new Loan(null, LoanStatus.LATE, Instant.parse("2024-06-01T11:00:00Z"), u4, b5);
-		Loan l5 = new Loan(null, LoanStatus.ACTIVE, Instant.parse("2024-06-15T08:00:00Z"), u1, b4);
+		Loan l1 = new Loan(LoanStatus.ACTIVE, Instant.parse("2024-06-10T10:00:00Z"), u1, b1);
+		Loan l2 = new Loan(LoanStatus.LATE, Instant.parse("2024-06-12T14:30:00Z"), u2, b2);
+		Loan l3 = new Loan(LoanStatus.RETURNED, Instant.parse("2024-05-20T09:15:00Z"), u3, b3);
+		Loan l4 = new Loan(LoanStatus.LATE, Instant.parse("2024-06-01T11:00:00Z"), u4, b5);
+		Loan l5 = new Loan(LoanStatus.ACTIVE, Instant.parse("2024-06-15T08:00:00Z"), u1, b4);
 
 		loanRepository.saveAll(Arrays.asList(l1, l2, l3, l4, l5));
 	}

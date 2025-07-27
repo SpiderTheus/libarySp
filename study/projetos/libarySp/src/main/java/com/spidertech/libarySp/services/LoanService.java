@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spidertech.libarySp.dtos.LoanDto;
+import com.spidertech.libarySp.entities.Loan;
 import com.spidertech.libarySp.repositores.LoanRepository;
 
 @Service
@@ -19,11 +20,15 @@ public class LoanService {
 		return repository.findAll().stream().map(LoanDto::new).toList();
 	}
 	
+	
 	public boolean existsByBookId(Long id) {
 
 		return repository.existsByBookId(id);
 	};
 	
-	
-	
+	public Loan isert(Loan obj) {
+		return repository.save(obj);
+	}
+
+
 }
