@@ -113,7 +113,7 @@ public class TestConfig implements CommandLineRunner {
 		bd1.setIdAuthors(Set.of(a1.getId())); 
 		bd1.setAuthores(Set.of(a1.getName()));
 		bd1.setCategories(Set.of(c1.getName(), c5.getName())); 
-		bd1.setIdCategories(Set.of(c1.getId(), c5.getId()));
+	
 		bd1.setPublisher(p3.getName()); 
 
 		BookDto bd2 = new BookDto();
@@ -123,7 +123,7 @@ public class TestConfig implements CommandLineRunner {
 		bd2.setIdAuthors(Set.of(a2.getId()));
 		bd2.setAuthores(Set.of(a2.getName()));
 		bd2.setCategories(Set.of(c1.getName(), c4.getName()));
-		bd2.setIdCategories(Set.of(c1.getId(), c4.getId()));
+	
 		bd2.setPublisher(p2.getName());
 
 		BookDto bd3 = new BookDto();
@@ -133,7 +133,7 @@ public class TestConfig implements CommandLineRunner {
 		bd3.setIdAuthors(Set.of(a3.getId()));
 		bd3.setAuthores(Set.of(a3.getName()));
 		bd3.setCategories(Set.of(c2.getName(), c5.getName())); 
-		bd3.setIdCategories(Set.of(c2.getId(), c5.getId()));
+	
 		bd3.setPublisher(p1.getName());
 
 		BookDto bd4 = new BookDto();
@@ -143,7 +143,7 @@ public class TestConfig implements CommandLineRunner {
 		bd4.setIdAuthors(Set.of(a4.getId())); 
 		bd4.setAuthores(Set.of(a4.getName()));
 		bd4.setCategories(Set.of(c2.getName(), c8.getName())); 
-		bd4.setIdCategories(Set.of(c2.getId(), c8.getId()));
+		
 		bd4.setPublisher(p5.getName());
 
 		BookDto bd5 = new BookDto();
@@ -153,10 +153,10 @@ public class TestConfig implements CommandLineRunner {
 		bd5.setIdAuthors(Set.of(a2.getId())); 
 		bd5.setAuthores(Set.of(a2.getName()));
 		bd5.setCategories(Set.of(c1.getName(), c10.getName()));
-		bd5.setIdCategories(Set.of(c1.getId(), c10.getId()));
+		
 		bd5.setPublisher(p4.getName()); 
 
-		System.out.println(bd5.getIdCategories());
+	
 		
 		Book b1 = new BookBuilder(authorService, categoryService, publisherService, bd1).build();
 

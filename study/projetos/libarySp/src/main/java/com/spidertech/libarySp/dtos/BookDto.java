@@ -10,33 +10,26 @@ import org.springframework.beans.BeanUtils;
 import com.spidertech.libarySp.entities.Book;
 
 public class BookDto {
-	
+
 	private String title;
 	private Set<Long> idAuthors = new HashSet<>();
 	private Set<String> authores = new HashSet<>();
 	private LocalDate datePublisher;
 	private boolean isAvalible;
-	private Set<Long> idCategories = new HashSet<>();
 	private Set<String> categories = new HashSet<>();
 	private String publisher;
-	
+
 	public BookDto() {
-		
+
 	}
-	 
+
 	public BookDto(Book book) {
 		BeanUtils.copyProperties(book, this);
 		this.idAuthors = book.getAuthores().stream().map(a -> a.getId()).collect(Collectors.toSet());
-		this.authores =	book.getAuthores().stream().map(a -> a.getName()).collect(Collectors.toSet());
-		
-		this.idCategories = book.getCategories().stream().map(a -> a.getId()).collect(Collectors.toSet());
+		this.authores = book.getAuthores().stream().map(a -> a.getName()).collect(Collectors.toSet());
 		this.categories = book.getCategories().stream().map(a -> a.getName()).collect(Collectors.toSet());
-	
 		this.publisher = book.getPublisher().getName();
 	}
-
-	
-	
 
 	public String getTitle() {
 		return title;
@@ -86,14 +79,6 @@ public class BookDto {
 		this.publisher = publisher;
 	}
 
-	public Set<Long> getIdCategories() {
-		return idCategories;
-	}
-
-	public void setIdCategories(Set<Long> idCategories) {
-		this.idCategories = idCategories;
-	}
-
 	public Set<Long> getIdAuthors() {
 		return idAuthors;
 	}
@@ -101,7 +86,5 @@ public class BookDto {
 	public void setIdAuthors(Set<Long> idAuthors) {
 		this.idAuthors = idAuthors;
 	}
-	
-	
-	
+
 }
