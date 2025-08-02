@@ -20,6 +20,8 @@ import com.spidertech.libarySp.services.exceptions.ResourceNotAvailableException
 import com.spidertech.libarySp.services.exceptions.ResourceNotDeleteAssociationsException;
 import com.spidertech.libarySp.services.exceptions.ResourceNotFoundException;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class BookService {
 
@@ -103,6 +105,7 @@ public class BookService {
 		repository.deleteById(id);
 	}
 	
+	@Transactional
 	public Loan lendBook(Long bookId, Long userId) {
 		
 		Book book = findById(bookId).orElseThrow(()-> new ResourceNotFoundException(bookId, "Book not found for loan."));
@@ -117,5 +120,22 @@ public class BookService {
 			throw new ResourceNotAvailableException(book.getTitle());
 		}
 	}
+	
+	@Transactional
+	public Book returnBook(Long loanId) {
+		Loan loan = loanService.findById(loanId).orElseThrow(()->  new ResourceNotFoundException(loanId, ": Loan not found."));
+		Book book = loan.getBook();
+		
+		loan.setDate(Instant.now());
+		loan.setStatus(LoanStatus.RETURNED);
+		book.setAvalible(true);
+		
+		repository.save(book);
+		
+		loanService.delete(loan);
+		
+		return book;
+	}
+	
 	
 }

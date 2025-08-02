@@ -66,17 +66,22 @@ public class BookResource {
 		return ResponseEntity.noContent().build();
 	}
 	
-	//create loan
+	
 	@PostMapping("/loan:/{bookId}/user/{userId}")
 	public ResponseEntity<LoanDto> loanBooK(@PathVariable Long bookId, @PathVariable Long userId){
 		LoanDto loan = new LoanDto(service.lendBook(bookId, userId));
 		return ResponseEntity.ok(loan);
-		
-		
+			
 	}
 	
 	
-	
+	@PutMapping(value = "returnBook/{loanId}")
+	public ResponseEntity<BookDto> returnBook(@PathVariable Long loanId) {
+		
+		BookDto obj = new BookDto(service.returnBook(loanId));
+		
+		return ResponseEntity.ok().body(obj);
+	}
 	
 	
 

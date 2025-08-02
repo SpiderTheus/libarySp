@@ -2,6 +2,7 @@ package com.spidertech.libarySp.dtos;
 
 import java.time.Instant;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.spidertech.libarySp.entities.Loan;
 import com.spidertech.libarySp.entities.enums.LoanStatus;
 
@@ -12,6 +13,8 @@ public class LoanDto {
 	private long idBook;
 	private String user;
 	private String book;
+	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	private Instant date;
 	private LoanStatus status;
 	
