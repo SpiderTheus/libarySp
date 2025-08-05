@@ -60,11 +60,11 @@ public class UserDto {
 	}
 
 	public Set<LoanDto> getLoans() {
-		return loans;
+		return new HashSet<>(loans);
 	}
 
 	public void setLoans(Set<LoanDto> loans) {
-		this.loans = loans;
+		this.loans = new HashSet<>(loans);
 	}
 
 	@Override

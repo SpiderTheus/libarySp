@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.BeanUtils;
 
+import com.spidertech.libarySp.entities.Author;
 import com.spidertech.libarySp.entities.Book;
 
 public class BookDto {
@@ -25,8 +26,8 @@ public class BookDto {
 
 	public BookDto(Book book) {
 		BeanUtils.copyProperties(book, this);
-		this.idAuthors = book.getAuthores().stream().map(a -> a.getId()).collect(Collectors.toSet());
-		this.authores = book.getAuthores().stream().map(a -> a.getName()).collect(Collectors.toSet());
+		this.idAuthors = book.getAuthores().stream().map(Author::getId).collect(Collectors.toSet());
+		this.authores = book.getAuthores().stream().map(Author::getName).collect(Collectors.toSet());
 		this.categories = book.getCategories().stream().map(a -> a.getName()).collect(Collectors.toSet());
 		this.publisher = book.getPublisher().getName();
 	}
@@ -40,11 +41,11 @@ public class BookDto {
 	}
 
 	public Set<String> getAuthores() {
-		return authores;
+		return new HashSet<>(authores);
 	}
 
 	public void setAuthores(Set<String> authores) {
-		this.authores = authores;
+		this.authores =	new HashSet<>(authores);
 	}
 
 	public LocalDate getDatePublisher() {
@@ -64,11 +65,11 @@ public class BookDto {
 	}
 
 	public Set<String> getCategories() {
-		return categories;
+		return new HashSet<>(categories);
 	}
 
 	public void setCategories(Set<String> categories) {
-		this.categories = categories;
+		this.categories = new HashSet<>(categories);
 	}
 
 	public String getPublisher() {
@@ -80,11 +81,11 @@ public class BookDto {
 	}
 
 	public Set<Long> getIdAuthors() {
-		return idAuthors;
+		return new HashSet<>(idAuthors);
 	}
 
 	public void setIdAuthors(Set<Long> idAuthors) {
-		this.idAuthors = idAuthors;
+		this.idAuthors = new HashSet<>(idAuthors);
 	}
 
 }

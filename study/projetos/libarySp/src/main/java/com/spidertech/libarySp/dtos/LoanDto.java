@@ -6,29 +6,27 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.spidertech.libarySp.entities.Loan;
 import com.spidertech.libarySp.entities.enums.LoanStatus;
 
-
-
 public class LoanDto {
 	private long id;
 	private long idBook;
 	private String user;
 	private String book;
-	
+
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	private Instant date;
 	private LoanStatus status;
-	
+
 	public LoanDto(Loan loan) {
 		this.id = loan.getId();
-		this.setIdBook(loan.getBook().getId());
+		this.idBook = loan.getBook().getId();
 		this.user = loan.getUser().getName();
 		this.book = loan.getBook().getTitle();
 		this.date = loan.getDate();
 		this.status = loan.getStatus();
 	}
-	
+
 	public LoanDto() {
-		
+
 	}
 
 	public long getId() {
@@ -38,7 +36,6 @@ public class LoanDto {
 	public void setId(long id) {
 		this.id = id;
 	}
-	
 
 	public String getUser() {
 		return user;
@@ -79,7 +76,5 @@ public class LoanDto {
 	public void setIdBook(long idBook) {
 		this.idBook = idBook;
 	}
-	
-	
-	
+
 }
