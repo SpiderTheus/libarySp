@@ -32,7 +32,9 @@ public class Loan implements Serializable{
 	@Enumerated(EnumType.STRING)
 	private LoanStatus status;
 	
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, 
+			pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", 
+			timezone = "GMT")
 	private Instant date;
 	
 	@ManyToOne

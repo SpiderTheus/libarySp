@@ -40,7 +40,6 @@ public class User implements Serializable{
 		this.name = name;
 		this.email = email;
 		this.phone = phone;
-		
 	}
 	
 
@@ -79,7 +78,7 @@ public class User implements Serializable{
 
 	
 	public Set<Loan> getLoans() {
-		return loans;
+		return new HashSet<>(this.loans);
 	}
 
 	@Override
@@ -100,9 +99,15 @@ public class User implements Serializable{
 	}
 
 	public void updateFrom(User obj) {
-		if(obj.getName() != null) this.name = obj.getName();
-		if(obj.getEmail()!= null)  this.email = obj.getEmail();
-		if(obj.getPhone() != null) this.phone = obj.getPhone();
+		if(obj.getName() != null) {
+			this.name = obj.getName();
+		}
+		if(obj.getEmail()!= null) {
+			this.email = obj.getEmail();
+		}
+		if(obj.getPhone() != null) {
+			this.phone = obj.getPhone();
+		}
 	}
 	
 

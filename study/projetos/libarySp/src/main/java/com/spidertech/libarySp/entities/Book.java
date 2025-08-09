@@ -32,19 +32,23 @@ public class Book implements Serializable {
 	private String title;
 
 	@ManyToMany
-	@JoinTable(name = "tb_book_author", joinColumns = @JoinColumn(name = "book_id"), inverseJoinColumns = @JoinColumn(name = "author_id"))
+	@JoinTable(name = "tb_book_author", 
+	joinColumns = @JoinColumn(name = "book_id"), 
+	inverseJoinColumns = @JoinColumn(name = "author_id"))
 	private Set<Author> authores = new HashSet<>();
 
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'", timezone = "GMT")
 	private LocalDate datePublisher;
-	private boolean isAvalible;
+	private boolean isAvalible; 
 
 	@OneToOne(mappedBy = "book")
 	@JsonIgnore
 	private Loan loan;
 
 	@ManyToMany
-	@JoinTable(name = "tb_book_category", joinColumns = @JoinColumn(name = "book_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
+	@JoinTable(name = "tb_book_category", 
+	joinColumns = @JoinColumn(name = "book_id"), 
+	inverseJoinColumns = @JoinColumn(name = "category_id"))
 	private Set<Category> categories = new HashSet<>();
 
 	@ManyToOne
@@ -105,16 +109,21 @@ public class Book implements Serializable {
 		this.loan = loan;
 	}
 
+	public Set<Author> getAuthores() {
+		return new HashSet<>(this.authores);
+	}
+
+	
 	public void setAuthores(Set<Author> authores) {
-		this.authores = authores;
+		this.authores = new HashSet<>(authores);
 	}
 
 	public void setCategories(Set<Category> categories) {
-		this.categories = categories;
+		this.categories = new HashSet<>(categories);
 	}
 
 	public Set<Category> getCategories() {
-		return categories;
+		return new HashSet<>(this.categories);
 	}
 
 	public Publisher getPublisher() {
@@ -125,10 +134,7 @@ public class Book implements Serializable {
 		this.publisher = publisher;
 	}
 
-	public Set<Author> getAuthores() {
-		return authores;
-	}
-
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);

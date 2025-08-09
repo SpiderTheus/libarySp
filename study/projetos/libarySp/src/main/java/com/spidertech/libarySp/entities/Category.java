@@ -57,7 +57,7 @@ public class Category  implements Serializable{
 	}
 
 	public List<Book> getBooks() {
-		return books;
+		return new ArrayList<>(this.books);
 	}
 
 	@Override

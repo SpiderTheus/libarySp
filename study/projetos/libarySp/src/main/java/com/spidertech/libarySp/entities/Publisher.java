@@ -69,7 +69,7 @@ public class Publisher implements Serializable{
 	}
 
 	public Set<Book> getBooks() {
-		return books;
+		return new HashSet<>(this.getBooks());
 	}
 
 	@Override
