@@ -10,7 +10,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
-import com.spidertech.libarySp.dtos.BookDto;
 import com.spidertech.libarySp.entities.Author;
 import com.spidertech.libarySp.entities.Book;
 import com.spidertech.libarySp.entities.Category;
@@ -105,72 +104,53 @@ public class TestConfig implements CommandLineRunner {
 
 		authorRepository.saveAll(Arrays.asList(a1, a2, a3, a4));
 
-		
-		BookDto bd1 = new BookDto();
-		bd1.setTitle("O Estrangeiro");
-		bd1.setDatePublisher(LocalDate.of(2020, 5, 20));
-		bd1.setAvalible(true);
-		bd1.setIdAuthors(Set.of(a1.getId())); 
-		bd1.setAuthores(Set.of(a1.getName()));
-		bd1.setCategories(Set.of(c1.getName(), c5.getName())); 
-	
-		bd1.setPublisher(p3.getName()); 
-
-		BookDto bd2 = new BookDto();
-		bd2.setTitle("1984");
-		bd2.setDatePublisher(LocalDate.of(2019, 4, 10));
-		bd2.setAvalible(true);
-		bd2.setIdAuthors(Set.of(a2.getId()));
-		bd2.setAuthores(Set.of(a2.getName()));
-		bd2.setCategories(Set.of(c1.getName(), c4.getName()));
-	
-		bd2.setPublisher(p2.getName());
-
-		BookDto bd3 = new BookDto();
-		bd3.setTitle("Dom Casmurro");
-		bd3.setDatePublisher(LocalDate.of(2018, 3, 15));
-		bd3.setAvalible(true);
-		bd3.setIdAuthors(Set.of(a3.getId()));
-		bd3.setAuthores(Set.of(a3.getName()));
-		bd3.setCategories(Set.of(c2.getName(), c5.getName())); 
-	
-		bd3.setPublisher(p1.getName());
-
-		BookDto bd4 = new BookDto();
-		bd4.setTitle("O Pequeno Príncipe");
-		bd4.setDatePublisher(LocalDate.of(2021, 6, 1));
-		bd4.setAvalible(true);
-		bd4.setIdAuthors(Set.of(a4.getId())); 
-		bd4.setAuthores(Set.of(a4.getName()));
-		bd4.setCategories(Set.of(c2.getName(), c8.getName())); 
-		
-		bd4.setPublisher(p5.getName());
-
-		BookDto bd5 = new BookDto();
-		bd5.setTitle("A Revolução dos Bichos");
-		bd5.setDatePublisher(LocalDate.of(2022, 9, 5));
-		bd5.setAvalible(true);
-		bd5.setIdAuthors(Set.of(a2.getId())); 
-		bd5.setAuthores(Set.of(a2.getName()));
-		bd5.setCategories(Set.of(c1.getName(), c10.getName()));
-		
-		bd5.setPublisher(p4.getName()); 
-
-	
-		
-		Book b1 = new BookBuilder(authorService, categoryService, publisherService, bd1).build();
-
-	
-		Book b2 = new BookBuilder(authorService, categoryService, publisherService, bd2).build();
-
-	
-		Book b3 = new BookBuilder(authorService, categoryService, publisherService, bd3).build();
 
 		
-		Book b4 = new BookBuilder(authorService, categoryService, publisherService, bd4).build();
+		Book b1 = new BookBuilder(authorService, categoryService, publisherService)
+				.title("O estrangeiro")
+				.authores(Set.of(a1.getId()))
+				.datePublisher(LocalDate.of(2020, 5, 20))
+				.isAvalible(false)
+				.categories(Set.of(c1.getName(), c5.getName()))
+				.publisher(p3.getName())
+				.build();
 
-		
-		Book b5 = new BookBuilder(authorService, categoryService, publisherService, bd5).build();
+	
+		Book b2 = new BookBuilder(authorService, categoryService, publisherService)
+		        .title("1984")
+		        .authores(Set.of(a2.getId()))
+		        .datePublisher(LocalDate.of(2019, 4, 10))
+		        .isAvalible(true)
+		        .categories(Set.of(c1.getName(), c4.getName()))
+		        .publisher(p2.getName())
+		        .build();
+
+		Book b3 = new BookBuilder(authorService, categoryService, publisherService)
+		        .title("Dom Casmurro")
+		        .authores(Set.of(a3.getId()))
+		        .datePublisher(LocalDate.of(2018, 3, 15))
+		        .isAvalible(true)
+		        .categories(Set.of(c2.getName(), c5.getName()))
+		        .publisher(p1.getName())
+		        .build();
+
+		Book b4 = new BookBuilder(authorService, categoryService, publisherService)
+		        .title("O Pequeno Príncipe")
+		        .authores(Set.of(a4.getId()))
+		        .datePublisher(LocalDate.of(2021, 6, 1))
+		        .isAvalible(true)
+		        .categories(Set.of(c2.getName(), c8.getName()))
+		        .publisher(p5.getName())
+		        .build();
+
+		Book b5 = new BookBuilder(authorService, categoryService, publisherService)
+		        .title("A Revolução dos Bichos")
+		        .authores(Set.of(a2.getId()))
+		        .datePublisher(LocalDate.of(2022, 9, 5))
+		        .isAvalible(true)
+		        .categories(Set.of(c1.getName(), c10.getName()))
+		        .publisher(p4.getName())
+		        .build();
 
 		bookRepository.saveAll(Arrays.asList(b1, b2, b3, b4, b5));
 

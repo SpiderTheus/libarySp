@@ -36,10 +36,9 @@ public class BookService {
 
 	@Autowired
 	private PublisherService publisherService;
-	
+
 	@Autowired
 	private UserService userService;
-	
 
 	@Autowired
 	private LoanService loanService;
@@ -54,25 +53,30 @@ public class BookService {
 	}
 
 	public List<BookDto> findByName(String title) {
-	
+
 		List<BookDto> books = repository.findByTitleContainingIgnoreCase(title).stream().map(BookDto::new).toList();
-		if(books.isEmpty())
+		if (books.isEmpty())
 			throw new NoResultsFoundException(title);
-		
+
 		return books;
 	}
 
 	public Book insert(BookDto obj) {
 
-		Book book = new BookBuilder(authorService, categoryService, publisherService, obj).build();
+		var book = new BookBuilder(authorService, categoryService, publisherService).title(obj.getTitle())
+				.authores(obj.getIdAuthors()).datePublisher(obj.getDatePublisher()).isAvalible(obj.isAvalible())
+				.categories(obj.getCategories()).publisher(obj.getPublisher()).build();
 
 		return repository.save(book);
 	}
 
 	public Book update(Long id, BookDto obj) {
-		Book bookUpdate = new BookBuilder(authorService, categoryService, publisherService, obj).build();
+
+		var bookUpdate = new BookBuilder(authorService, categoryService, publisherService).title(obj.getTitle())
+				.authores(obj.getIdAuthors()).datePublisher(obj.getDatePublisher()).isAvalible(obj.isAvalible())
+				.categories(obj.getCategories()).publisher(obj.getPublisher()).build();
 		try {
-			Book book = findById(id).get();
+			var book = findById(id).get();
 			if (bookUpdate.getTitle() != null)
 				book.setTitle(bookUpdate.getTitle());
 			if (bookUpdate.getAuthores() != null)
@@ -94,24 +98,25 @@ public class BookService {
 	}
 
 	public void delete(Long id) {
-		
-		if(!repository.existsById(id))
+
+		if (!repository.existsById(id))
 			throw new ResourceNotFoundException(id, "Book not deleted");
-		
+
 		if (loanService.existsByBookId(id)) {
 			throw new ResourceNotDeleteAssociationsException("Loans");
-		} 
-		
+		}
+
 		repository.deleteById(id);
 	}
-	
+
 	@Transactional
 	public Loan lendBook(Long bookId, Long userId) {
-		
-		Book book = findById(bookId).orElseThrow(()-> new ResourceNotFoundException(bookId, "Book not found for loan."));
+
+		Book book = findById(bookId)
+				.orElseThrow(() -> new ResourceNotFoundException(bookId, "Book not found for loan."));
 		User user = userService.findById(userId);
-			
-		if(book.isAvalible()) {
+
+		if (book.isAvalible()) {
 			Loan loan = new Loan(LoanStatus.ACTIVE, Instant.now(), user, book);
 			book.setAvalible(false);
 			repository.save(book);
@@ -120,22 +125,22 @@ public class BookService {
 			throw new ResourceNotAvailableException(book.getTitle());
 		}
 	}
-	
+
 	@Transactional
 	public Book returnBook(Long loanId) {
-		Loan loan = loanService.findById(loanId).orElseThrow(()->  new ResourceNotFoundException(loanId, ": Loan not found."));
+		Loan loan = loanService.findById(loanId)
+				.orElseThrow(() -> new ResourceNotFoundException(loanId, ": Loan not found."));
 		Book book = loan.getBook();
-		
+
 		loan.setDate(Instant.now());
 		loan.setStatus(LoanStatus.RETURNED);
 		book.setAvalible(true);
-		
+
 		repository.save(book);
-		
+
 		loanService.delete(loan);
-		
+
 		return book;
 	}
-	
-	
+
 }
