@@ -35,7 +35,7 @@ public class Loan implements Serializable{
 	@JsonFormat(shape = JsonFormat.Shape.STRING, 
 			pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", 
 			timezone = "GMT")
-	private Instant date;
+	private transient Instant date;
 	
 	@ManyToOne
 	@JoinColumn(name ="user_id")

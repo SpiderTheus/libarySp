@@ -8,8 +8,9 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class ReplyMessage implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
+
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
-	private Instant timeInstant;
+	private transient Instant timeInstant;
 	private Integer status;
 	private String message;
 	

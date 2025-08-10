@@ -38,7 +38,7 @@ public class Book implements Serializable {
 	private Set<Author> authores = new HashSet<>();
 
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'", timezone = "GMT")
-	private LocalDate datePublisher;
+	private transient LocalDate datePublisher;
 	private boolean isAvalible; 
 
 	@OneToOne(mappedBy = "book")

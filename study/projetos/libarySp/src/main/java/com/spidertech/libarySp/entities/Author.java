@@ -25,7 +25,7 @@ public class Author implements Serializable {
 	private Long id;
 	private String name;
 	private String location;
-	private LocalDate birth;
+	private transient LocalDate birth;
 
 	@ManyToMany(mappedBy = "authores")
 	@JsonIgnore
