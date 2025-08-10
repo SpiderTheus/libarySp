@@ -1,9 +1,7 @@
-
 package com.spidertech.libarySp.resources;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,10 +21,11 @@ import com.spidertech.libarySp.services.BookService;
 @RequestMapping(value = "/books")
 public class BookResource {
 
-	@Autowired
-	private BookService service;
-	
+	private final BookService service;
 
+	public BookResource(BookService service) {
+		this.service = service;
+	}
 
 	@GetMapping
 	public ResponseEntity<List<BookDto>> findAll() {
@@ -36,53 +35,39 @@ public class BookResource {
 
 	@GetMapping(value = "/{title}")
 	public ResponseEntity<List<BookDto>> findByName(@PathVariable String title) {
-
 		title = title.replace("-", " ");
-		System.out.println(title);
-		
 		List<BookDto> list = service.findByName(title);
 		return ResponseEntity.ok().body(list);
 	}
 
 	@PostMapping
 	public ResponseEntity<Book> isert(@RequestBody BookDto obj) {
-
-		Book book = service.insert(obj);
-
+		var book = service.insert(obj);
 		return ResponseEntity.ok(book);
 	}
-	
+
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<BookDto> update(@PathVariable Long id, @RequestBody BookDto obj) {
 		obj = new BookDto(service.update(id, obj));
-		
 		return ResponseEntity.ok().body(obj);
 	}
-	
-	
+
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Long id) {
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
-	
-	
+
 	@PostMapping("/loan:/{bookId}/user/{userId}")
-	public ResponseEntity<LoanDto> loanBooK(@PathVariable Long bookId, @PathVariable Long userId){
-		LoanDto loan = new LoanDto(service.lendBook(bookId, userId));
+	public ResponseEntity<LoanDto> loanBooK(@PathVariable Long bookId, @PathVariable Long userId) {
+		var loan = new LoanDto(service.lendBook(bookId, userId));
 		return ResponseEntity.ok(loan);
-			
 	}
-	
-	
+
 	@PutMapping(value = "returnBook/{loanId}")
 	public ResponseEntity<BookDto> returnBook(@PathVariable Long loanId) {
-		
-		BookDto obj = new BookDto(service.returnBook(loanId));
-		
+		var obj = new BookDto(service.returnBook(loanId));
 		return ResponseEntity.ok().body(obj);
 	}
-	
-	
 
 }

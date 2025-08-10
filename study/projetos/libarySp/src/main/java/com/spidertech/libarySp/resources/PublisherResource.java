@@ -2,7 +2,6 @@ package com.spidertech.libarySp.resources;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,8 +20,11 @@ import com.spidertech.libarySp.services.PublisherService;
 @RequestMapping(value = "/publishers")
 public class PublisherResource {
 	
-	@Autowired
-	private PublisherService service;
+	private final PublisherService service;
+	
+	public PublisherResource(PublisherService service) {
+		this.service = service;
+	}
 	
 	@GetMapping
 	public ResponseEntity<List<Publisher>> findAll(){

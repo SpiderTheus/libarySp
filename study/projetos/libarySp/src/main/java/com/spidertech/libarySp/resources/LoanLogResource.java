@@ -2,7 +2,6 @@ package com.spidertech.libarySp.resources;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,8 +14,11 @@ import com.spidertech.libarySp.services.LoanLogService;
 @RequestMapping(value = "/loans/logs")
 public class LoanLogResource {
 		
-	@Autowired
-	private LoanLogService service;
+	private final LoanLogService service;
+	
+	public LoanLogResource(LoanLogService service) {
+		this.service = service;
+	}
 	
 	@GetMapping
 	public ResponseEntity<List<LoanLog>> findAll(){

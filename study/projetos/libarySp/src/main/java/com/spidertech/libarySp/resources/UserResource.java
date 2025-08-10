@@ -3,7 +3,6 @@ package com.spidertech.libarySp.resources;
 import java.util.List;
 import java.util.Set;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,30 +22,30 @@ import com.spidertech.libarySp.services.UserService;
 @RequestMapping(value = "/users")
 public class UserResource {
 
-	@Autowired
-	private UserService service;
+	private final UserService service;
+
+	public UserResource(UserService service) {
+		this.service = service;
+	}
 
 	@GetMapping
 	public ResponseEntity<List<UserDto>> findAll() {
 		List<UserDto> list = service.findAll();
 		return ResponseEntity.ok().body(list);
 	}
-	
-	
-	
 
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<UserDto> findById(@PathVariable Long id) {
-		UserDto obj = new UserDto();
+		var obj = new UserDto();
 		return ResponseEntity.ok().body(obj);
 	}
 
 	@GetMapping(value = "/{id}/loans")
-	public ResponseEntity<Set<LoanDto>> loansUser(@PathVariable Long id){
+	public ResponseEntity<Set<LoanDto>> loansUser(@PathVariable Long id) {
 		Set<LoanDto> list = service.loansUser(id);
 		return ResponseEntity.ok().body(list);
 	}
-	
+
 	@PostMapping
 	public ResponseEntity<User> isert(@RequestBody User obj) {
 		obj = service.isert(obj);
@@ -65,7 +64,5 @@ public class UserResource {
 		return ResponseEntity.noContent().build();
 
 	}
-	
-	
-	
+
 }

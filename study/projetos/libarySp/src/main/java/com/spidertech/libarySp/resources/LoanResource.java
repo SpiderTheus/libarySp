@@ -2,7 +2,6 @@ package com.spidertech.libarySp.resources;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,9 +13,12 @@ import com.spidertech.libarySp.services.LoanService;
 @RestController
 @RequestMapping(value = "/loans")
 public class LoanResource {
-		
-	@Autowired
-	private LoanService service;
+
+	private final LoanService service;
+	
+	public LoanResource(LoanService service) {
+		this.service = service;
+	}
 	
 	@GetMapping
 	public ResponseEntity<List<LoanDto>> findAll(){

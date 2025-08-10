@@ -2,7 +2,6 @@ package com.spidertech.libarySp.resources;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,8 +20,12 @@ import com.spidertech.libarySp.services.AuthorService;
 @RequestMapping(value = "/authores")
 public class AuthorResource {
 	
-	@Autowired
-	private AuthorService service;
+
+	private final AuthorService service;
+	
+	public AuthorResource(AuthorService service) {
+		this.service = service;
+	}
 	
 	@GetMapping
 	public ResponseEntity<List<Author>> findAll(){
