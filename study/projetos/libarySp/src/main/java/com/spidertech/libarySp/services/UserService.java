@@ -3,7 +3,6 @@ package com.spidertech.libarySp.services;
 import java.util.List;
 import java.util.Set;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spidertech.libarySp.dtos.LoanDto;
@@ -13,13 +12,15 @@ import com.spidertech.libarySp.repositores.UserRepository;
 import com.spidertech.libarySp.services.exceptions.NameNotNullException;
 import com.spidertech.libarySp.services.exceptions.ResourceNotFoundException;
 
-import jakarta.persistence.EntityNotFoundException;
-
 @Service
 public class UserService {
 
-	@Autowired
-	private UserRepository repository;
+	private final UserRepository repository;
+
+	public UserService(UserRepository repository) {
+
+		this.repository = repository;
+	}
 
 	public List<UserDto> findAll() {
 
@@ -29,7 +30,7 @@ public class UserService {
 
 	public User findById(Long id) {
 
-		return	repository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id, "User not found."));
+		return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id, "User not found."));
 
 	}
 
@@ -43,14 +44,11 @@ public class UserService {
 	}
 
 	public User update(Long id, User obj) {
-		try {
-			User entity = repository.getReferenceById(id);
-			updateData(entity, obj);
-			return repository.save(entity);
-		} catch (EntityNotFoundException e) {
-			throw new ResourceNotFoundException(id, "User not updated.");
-		}
+		
+		User entity = findById(id);
 
+		updateData(entity, obj);
+		return repository.save(entity);
 	}
 
 	public void updateData(User entity, User obj) {
@@ -66,10 +64,9 @@ public class UserService {
 	}
 
 	public Set<LoanDto> loansUser(Long id) {
-	
-		UserDto user = new UserDto(findById(id));
-		
-		
+
+		var user = new UserDto(findById(id));
+
 		return user.getLoans();
 	}
 }

@@ -16,7 +16,7 @@ import com.spidertech.libarySp.services.exceptions.ResourceNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 
 @ControllerAdvice
-public class GlobalExcepetionsHandler {
+public class GlobalExceptionsHandler {
 
 	@ExceptionHandler(ResourceNotFoundException.class)
 	public ResponseEntity<ErrorResponse> resourceNotFoundException(Throwable e, HttpServletRequest request) {

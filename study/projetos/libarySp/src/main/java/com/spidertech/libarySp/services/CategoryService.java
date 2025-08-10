@@ -1,40 +1,39 @@
 package com.spidertech.libarySp.services;
 
+import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spidertech.libarySp.entities.Category;
 import com.spidertech.libarySp.repositores.CategoryRepository;
+import com.spidertech.libarySp.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class CategoryService {
 
-	@Autowired
-	private CategoryRepository repository;
+	private final CategoryRepository repository;
+	
+	public CategoryService(CategoryRepository repository) {
+		this.repository = repository;
+	}
 
 	public List<Category> findAll() {
 		return repository.findAll();
 	}
 
 	public Category findById(Long id) {
-		Optional<Category> obj = repository.findById(id);
 
-		return obj.get();
+		return repository.findById(id).orElseThrow(()-> new ResourceNotFoundException(id, "Category not found."));
 	}
 
-	public Set<Category> insertByNamesContaining(Set<String> categories){
+	public Set<Category> insertByNamesContaining(Collection<String> categories){
 		
-		
-		Set<Category> nameCategories = repository.findAll().stream().filter(c -> categories.contains(c.getName())).collect(Collectors.toSet());
-	
-		
-		
-		return nameCategories;
+		return repository.findAll()
+				.stream().filter(c -> categories.contains(c.getName()))
+				.collect(Collectors.toSet());
 		
 	}
 
