@@ -62,7 +62,7 @@ public class TestConfig implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		// TODO Auto-generated method stub
+
 		User u1 = new User("Matheus Moraes", "matheus@gmail.com", "77-98848-0213");
 		User u2 = new User("Lucas Silva", "lucas.silva@gmail.com", "77-98847-1234");
 		User u3 = new User("Ana Pereira", "ana.pereira@gmail.com", "77-98846-5678");

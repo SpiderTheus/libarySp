@@ -15,21 +15,19 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="tb_category")
-public class Category  implements Serializable{
+@Table(name = "tb_category")
+public class Category implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	private String name;
-	
+
 	@ManyToMany(mappedBy = "categories")
 	@JsonIgnore
 	private List<Book> books = new ArrayList<>();
-	
-	
 
 	public Category(String name) {
 		super();
@@ -37,7 +35,7 @@ public class Category  implements Serializable{
 	}
 
 	public Category() {
-		
+
 	}
 
 	public Long getId() {
@@ -77,6 +75,4 @@ public class Category  implements Serializable{
 		return Objects.equals(id, other.id);
 	}
 
-	
-	
 }
